@@ -1,0 +1,6 @@
+{
+  "name": "AI Virtual Fashion Studio",
+  "description": "Transforms plain & printed fabrics, sarees, and shirting materials into photorealistic Kerala AI fashion model shoots and viral 9:16 Instagram & WhatsApp Reels with bilingual Malayalam narration, showroom routing, and video shopping concierge for Lakshmi Stores.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
