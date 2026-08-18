@@ -96,7 +96,7 @@ export const AnalysisAndProfile: React.FC<AnalysisAndProfileProps> = ({
             <span>Color Spectrum</span>
           </div>
           <div className="text-sm font-bold text-white truncate">{analysis.primaryColor}</div>
-          <div className="text-[11px] text-slate-400 truncate">{analysis.secondaryColors.join(', ')}</div>
+          <div className="text-[11px] text-slate-400 truncate">{analysis.secondaryColors?.join(', ') || 'Traditional Palette'}</div>
         </div>
 
         <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
@@ -114,12 +114,12 @@ export const AnalysisAndProfile: React.FC<AnalysisAndProfileProps> = ({
             <span>Border & Motifs</span>
           </div>
           <div className="text-sm font-bold text-white truncate">{analysis.border}</div>
-          <div className="text-[11px] text-slate-400 truncate">{analysis.motifs.join(', ') || 'Traditional'}</div>
+          <div className="text-[11px] text-slate-400 truncate">{analysis.motifs?.join(', ') || 'Traditional Signatures'}</div>
         </div>
       </div>
 
       {/* Shirting Material Tailor Simulation Card (if detected as shirting) */}
-      {(analysis.isShirtingMaterial || analysis.category.toLowerCase().includes('shirt') || userInfo.isShirtingMaterial) && (
+      {(analysis.isShirtingMaterial || analysis.category?.toLowerCase()?.includes('shirt') || userInfo.isShirtingMaterial) && (
         <div className="bg-gradient-to-r from-cyan-950/40 via-slate-950 to-indigo-950/40 border border-cyan-500/30 rounded-xl p-4 mb-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-2.5 border-b border-cyan-900/40">
             <div className="flex items-center space-x-2">
@@ -127,11 +127,11 @@ export const AnalysisAndProfile: React.FC<AnalysisAndProfileProps> = ({
                 <span>👔 Shirting Material & Bespoke Tailor Simulation</span>
               </span>
               <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold border ${
-                (analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed' || analysis.pattern.toLowerCase().includes('print'))
+                (analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed' || analysis.pattern?.toLowerCase()?.includes('print'))
                   ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
                   : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
               }`}>
-                {(analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed' || analysis.pattern.toLowerCase().includes('print'))
+                {(analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed' || analysis.pattern?.toLowerCase()?.includes('print'))
                   ? '🎨 Printed Shirting Fabric'
                   : '✨ Plain Solid Shirting Material'}
               </span>
@@ -145,12 +145,12 @@ export const AnalysisAndProfile: React.FC<AnalysisAndProfileProps> = ({
             <div className="bg-slate-900/80 p-2.5 rounded-lg border border-cyan-900/30">
               <div className="text-[11px] font-semibold text-cyan-400 mb-1">Recommended Tailor Styling</div>
               <p className="text-slate-200 font-medium">
-                {(analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed' || analysis.pattern.toLowerCase().includes('print'))
+                {(analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed' || analysis.pattern?.toLowerCase()?.includes('print'))
                   ? 'Casual Cuban / Camp Collar Shirt or Short Sleeve Resort Cut'
                   : 'Crisp Full-Sleeve Classic Collar / Mandarin Bandhgala Shirt'}
               </p>
               <div className="text-[10px] text-slate-400 mt-1">
-                {(analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed')
+                {(analysis.shirtingType === 'printed' || userInfo.shirtingType === 'printed' || analysis.pattern?.toLowerCase()?.includes('print'))
                   ? 'Vibrant prints tailored for casual weekend & festive gatherings'
                   : 'Sharp structure suitable for office formals & wedding functions'}
               </div>
@@ -306,11 +306,13 @@ export const AnalysisAndProfile: React.FC<AnalysisAndProfileProps> = ({
             <div className="sm:col-span-3 pt-2 border-t border-slate-850">
               <span className="text-slate-500">Key Visual Signatures:</span>
               <div className="flex flex-wrap gap-1.5 mt-1">
-                {analysis.extractedDetails.map((detail, idx) => (
+                {analysis.extractedDetails?.map((detail, idx) => (
                   <span key={idx} className="bg-slate-900 text-slate-300 px-2.5 py-1 rounded-md text-[11px] border border-slate-800">
                     ✨ {detail}
                   </span>
-                ))}
+                )) || (
+                  <span className="text-slate-500 italic">No specific signatures identified.</span>
+                )}
               </div>
             </div>
           </div>

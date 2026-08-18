@@ -4,14 +4,14 @@ import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
 import { db } from './server/db';
 import { AIFactory } from './server/ai/factory';
-import { GenerationJob, ReelProject, ProductItem } from './src/types';
+import { GenerationJob, ReelProject, ProductItem, ReelScript, LipSyncQualityReport } from './src/types';
 import { AI_MODELS_PRESETS, MUSIC_TRACKS_PRESETS, REEL_TEMPLATES_PRESETS, VOICES_PRESETS } from './src/data/presets';
 
 dotenv.config();
 
 async function startServer() {
   const app = express();
-  const PORT = process.env.PORT || 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   // Middleware for JSON body parsing with large limit for image uploads
   app.use(express.json({ limit: '50mb' }));
@@ -473,9 +473,12 @@ async function startServer() {
             const firstTalkingSegment = talkingSegments[0];
             const talkingResult = await providers.lipSync.generateTalkingShot({
               modelProfile: selectedModel,
+              productImageBase64: sourceImage,
               scriptSegment: firstTalkingSegment,
               expression: 'welcoming_smile',
-              cameraFraming: 'chest_up_eye_level'
+              cameraFraming: 'chest_up_eye_level',
+              garmentAnalysis: analysis,
+              environment: selectedEnv
             });
 
             // Mark matching shots with talking model metadata

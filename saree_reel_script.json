@@ -1,0 +1,44 @@
+{
+  "malayalamTitle": "മനോഹരമായ വെഡ്ഡിംഗ് സിൽക്ക് കളക്ഷൻ",
+  "malayalamScript": "നിങ്ങളുടെ വിവാഹ നിമിഷങ്ങൾ കൂടുതൽ മനോഹരമാക്കാൻ ലക്ഷ്മി സിൽക്സിന്റെ റാണീ പിങ്ക് കാഞ്ചീപുരം സാരി. പരമ്പരാഗതമായ ഡിസൈനും സ്വർണ്ണ സരി ബോർഡറും ഇതിന് കൂടുതൽ പ്രൗഢി നൽകുന്നു.",
+  "malayalamCaption": "വിവാഹ ആഘോഷങ്ങൾക്ക് മാറ്റുകൂട്ടാൻ മനോഹരമായ സിൽക്ക് സാരികൾ! ✨",
+  "malayalamHashtags": [
+    "#WeddingSilk",
+    "#KeralaBride",
+    "#Kanchipuram"
+  ],
+  "englishTitle": "Bridal Silk Collection",
+  "englishScript": "Make your wedding moments magical with our Rani Pink Kanchipuram Silk Saree. Traditional gold zari border for a royal look.",
+  "englishCaption": "Elegance defined. Premium bridal collection now available.",
+  "englishHashtags": [
+    "#BridalWear",
+    "#SilkSaree",
+    "#LakshmiSilks"
+  ],
+  "durationSec": 15,
+  "hookLine": "നിങ്ങളുടെ വിവാഹ നിമിഷങ്ങൾ കൂടുതൽ മനോഹരമാക്കാൻ...",
+  "callToAction": "ഇന്നുതന്നെ ഞങ്ങളുടെ സ്റ്റോർ സന്ദർശിക്കൂ | WhatsApp Now.",
+  "subtitles": [
+    {
+      "id": "sub_1",
+      "startTime": 0,
+      "endTime": 5,
+      "textMl": "നിങ്ങളുടെ വിവാഹ നിമിഷങ്ങൾ കൂടുതൽ മനോഹരമാക്കാൻ...",
+      "textEn": "Make your wedding moments magical..."
+    },
+    {
+      "id": "sub_2",
+      "startTime": 5,
+      "endTime": 10,
+      "textMl": "റാണീ പിങ്ക് കാഞ്ചീപുരം സിൽക്ക് സാരി.",
+      "textEn": "Rani Pink Kanchipuram Silk Saree."
+    },
+    {
+      "id": "sub_3",
+      "startTime": 10,
+      "endTime": 15,
+      "textMl": "ഇന്നുതന്നെ ഓർഡർ ചെയ്യൂ | WhatsApp Now.",
+      "textEn": "Order today | WhatsApp Now."
+    }
+  ]
+}

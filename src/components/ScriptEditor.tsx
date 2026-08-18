@@ -47,7 +47,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
           textEn: script.subtitles?.[0]?.textEn || 'Make your celebrations more special...',
           language: 'ml-IN',
           duration: 3.5,
-          type: (script.presentationMode === 'voice_over' ? 'VOICE_OVER' : 'TALKING_MODEL') as const,
+          type: (script.presentationMode === 'voice_over' ? 'VOICE_OVER' : 'TALKING_MODEL') as any,
           speaker: script.presentationMode === 'voice_over' ? 'Narrator Voiceover' : 'AI Model',
           shotId: 'shot_1',
           shotIndex: 0,
@@ -60,7 +60,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
           textEn: script.subtitles?.[1]?.textEn || 'Authentic weave with handcrafted gold zari border.',
           language: 'ml-IN',
           duration: 4.5,
-          type: (script.presentationMode === 'talking_model' ? 'TALKING_MODEL' : 'VOICE_OVER') as const,
+          type: (script.presentationMode === 'talking_model' ? 'TALKING_MODEL' : 'VOICE_OVER') as any,
           speaker: script.presentationMode === 'talking_model' ? 'AI Model' : 'Narrator Voiceover',
           shotId: 'shot_2',
           shotIndex: 1,
@@ -86,7 +86,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
           textEn: script.subtitles?.[3]?.textEn || 'Order Today • WhatsApp Now.',
           language: 'ml-IN',
           duration: 3.5,
-          type: (script.presentationMode === 'voice_over' ? 'CTA' : 'TALKING_MODEL') as const,
+          type: (script.presentationMode === 'voice_over' ? 'CTA' : 'TALKING_MODEL') as any,
           speaker: script.presentationMode === 'voice_over' ? 'Narrator Voiceover' : 'AI Model',
           shotId: 'shot_4',
           shotIndex: 3,
@@ -134,35 +134,18 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
     });
   };
 
-  const handleApproveScript = async () => {
+  const handleApproveScript = () => {
     setIsApproving(true);
-    try {
-      const resp = await fetch('/api/ai/script/approve', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ script, version: script.approvedScriptVersion || 1 })
-      });
-      const data = await resp.json();
-      if (data.success && data.approvedScript) {
-        onUpdateScript(data.approvedScript);
-      } else {
-        onUpdateScript({
-          ...script,
-          isApproved: true,
-          approvedScriptVersion: (script.approvedScriptVersion || 1) + 1,
-          approvedAt: new Date().toISOString()
-        });
-      }
-    } catch {
+    // For static free tier, we lock the script locally without a roundtrip
+    setTimeout(() => {
       onUpdateScript({
         ...script,
         isApproved: true,
         approvedScriptVersion: (script.approvedScriptVersion || 1) + 1,
         approvedAt: new Date().toISOString()
       });
-    } finally {
       setIsApproving(false);
-    }
+    }, 500);
   };
 
   const copyToClipboard = (text: string, type: 'caption' | 'hashtags') => {

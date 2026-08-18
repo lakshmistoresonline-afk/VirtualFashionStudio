@@ -14,7 +14,7 @@ export type ShootEnvironment =
   | 'luxury_palace'
   | 'minimal_studio';
 
-export type ShotType = 'full_body' | 'three_quarter' | 'movement' | 'close_up' | 'final_pose';
+export type ShotType = 'full_body' | 'three_quarter' | 'movement' | 'close_up' | 'final_pose' | 'portrait' | 'landscape';
 
 export type OccasionType = 'None' | 'Onam' | 'Vishu' | 'Wedding' | 'Festival' | 'New Arrival' | 'Sale';
 

@@ -47,6 +47,7 @@ export const VoiceAndSubtitles: React.FC<VoiceAndSubtitlesProps> = ({
   speakingStyle = 'festive',
   onUpdateSpeakingStyle,
   speakerType = 'female_model',
+  onUpdateSpeakerType,
   modelName = 'AI Model',
   capabilities
 }) => {

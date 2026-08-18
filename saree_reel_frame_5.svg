@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad_5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c1917" />
+      <stop offset="60%" stop-color="#451a03" />
+      <stop offset="100%" stop-color="#09090b" />
+    </linearGradient>
+
+    <!-- Golden Rim Light -->
+    <linearGradient id="goldRim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Uploaded Fabric Pattern -->
+    <pattern id="fabric_pattern_5" patternUnits="userSpaceOnUse" width="180" height="180">
+      <image href="https://ai-virtual-fashion-studio.2dd38979/user_upload/saree_magenta.jpg" x="0" y="0" width="180" height="180" preserveAspectRatio="xMidYMid slice" />
+    </pattern>
+
+    <!-- Fabric Shading Overlay -->
+    <linearGradient id="fabricShading" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.45" />
+      <stop offset="25%" stop-color="#ffffff" stop-opacity="0.15" />
+      <stop offset="50%" stop-color="#000000" stop-opacity="0.05" />
+      <stop offset="75%" stop-color="#ffffff" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.5" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow_5" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <!-- Clip Path for Model Head/Face -->
+    <clipPath id="faceClip">
+      <circle cx="360" cy="280" r="110" />
+    </clipPath>
+  </defs>
+
+  <!-- 1. Studio Background -->
+  <rect width="720" height="1280" fill="url(#bgGrad_5)" />
+
+  <!-- Ambient Light Bokeh Circles -->
+  <circle cx="120" cy="180" r="140" fill="#fbbf24" opacity="0.08" filter="blur(40px)" />
+  <circle cx="620" cy="400" r="180" fill="#f43f5e" opacity="0.06" filter="blur(50px)" />
+  <circle cx="360" cy="900" r="220" fill="#fbbf24" opacity="0.05" filter="blur(60px)" />
+
+  <!-- Background Pillars / Studio Depth Lines -->
+  <line x1="80" y1="0" x2="80" y2="1280" stroke="#ffffff" stroke-opacity="0.03" stroke-width="2" />
+  <line x1="640" y1="0" x2="640" y2="1280" stroke="#ffffff" stroke-opacity="0.03" stroke-width="2" />
+  <circle cx="360" cy="380" r="300" stroke="url(#goldRim)" stroke-width="1" fill="none" opacity="0.3" stroke-dasharray="8 8" />
+
+  <!-- 2. MODEL BODY & TAILORED GARMENT COMPOSITE -->
+  <g filter="url(#shadow_5)">
+
+    
+      <!-- WOMEN'S DRAPED SAREE / ETHNIC WEAR -->
+      <!-- Flowing Saree Skirt & Pleats -->
+      <path d="M 230 760 Q 360 780 490 760 L 540 1220 L 180 1220 Z" fill="url(#fabric_pattern_5)" />
+      <path d="M 230 760 Q 360 780 490 760 L 540 1220 L 180 1220 Z" fill="url(#fabricShading)" mix-blend-mode="multiply" />
+
+      <!-- Saree Pleat Vertical Lines -->
+      <line x1="330" y1="780" x2="330" y2="1220" stroke="#000000" stroke-opacity="0.35" stroke-width="3"/>
+      <line x1="360" y1="780" x2="360" y2="1220" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2"/>
+      <line x1="390" y1="780" x2="390" y2="1220" stroke="#000000" stroke-opacity="0.35" stroke-width="3"/>
+
+      <!-- Gold Zari Border on Saree Skirt Hem -->
+      <rect x="180" y="1160" width="360" height="40" fill="#d97706" opacity="0.9"/>
+      <line x1="180" y1="1165" x2="540" y2="1165" stroke="#fef08a" stroke-width="3"/>
+      <line x1="180" y1="1195" x2="540" y2="1195" stroke="#fef08a" stroke-width="2"/>
+
+      <!-- Tailored Blouse / Choli -->
+      <path d="M 250 420 L 470 420 L 450 580 L 270 580 Z" fill="url(#fabric_pattern_5)" />
+      <path d="M 250 420 L 470 420 L 450 580 L 270 580 Z" fill="#000000" opacity="0.2" />
+
+      <!-- Saree Pallu Diagonal Drape across Torso -->
+      <path d="M 230 760 Q 340 600 480 410 L 520 480 Q 360 690 260 820 Z" fill="url(#fabric_pattern_5)" />
+      <path d="M 230 760 Q 340 600 480 410 L 520 480 Q 360 690 260 820 Z" fill="url(#goldRim)" opacity="0.35" mix-blend-mode="overlay" />
+
+      <!-- Gold Pallu Border Strip -->
+      <path d="M 480 410 L 520 480 L 500 700 L 465 650 Z" fill="#f59e0b" opacity="0.85"/>
+      <line x1="480" y1="410" x2="465" y2="650" stroke="#fef08a" stroke-width="2"/>
+    
+
+    <!-- 3. NATIVE KERALA MODEL FACE & HEAD (High Resolution Avatar Portrait) -->
+    <!-- Model Neck -->
+    <rect x="330" y="360" width="60" height="50" fill="#9a3412" rx="10" opacity="0.8"/>
+    <!-- Face Avatar Image with Circular Clip & Gold Ring -->
+    <circle cx="360" cy="260" r="100" fill="#1c1917" stroke="#fbbf24" stroke-width="3"/>
+    <g clip-path="url(#faceClip)">
+      <image href="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&amp;auto=format&amp;fit=crop&amp;q=80" x="240" y="140" width="240" height="240" preserveAspectRatio="xMidYMid slice" />
+    </g>
+    <!-- Soft Golden Studio Ambient Glow on Model's Face -->
+    <circle cx="360" cy="260" r="100" fill="url(#goldRim)" opacity="0.15" pointer-events="none" />
+  </g>
+
+  <!-- 4. SIGNATURE BRAND POSE BONUS: Model holding raw fabric swatch roll (Shot 5) -->
+  
+    <g transform="translate(440, 680) rotate(-15)" filter="url(#shadow_5)">
+      <!-- Fabric Bolt Cylinder -->
+      <rect x="0" y="0" width="200" height="70" rx="12" fill="url(#fabric_pattern_5)" stroke="#fbbf24" stroke-width="2"/>
+      <ellipse cx="200" cy="35" rx="15" ry="35" fill="url(#fabric_pattern_5)" stroke="#fbbf24" stroke-width="2"/>
+      <ellipse cx="0" cy="35" rx="15" ry="35" fill="#3b0764" />
+      <!-- Gold Ribbon Tie -->
+      <rect x="80" y="0" width="20" height="70" fill="#f59e0b" />
+      <text x="90" y="40" fill="#78350f" font-size="10" font-weight="900" text-anchor="middle" transform="rotate(90 90 40)">PREMIUM</text>
+    </g>
+  
+
+  <!-- 5. INSET PRODUCT PIP BADGE (Proof of Real Uploaded Fabric) -->
+  <g transform="translate(480, 40)" filter="url(#shadow_5)">
+    <rect width="200" height="130" rx="14" fill="#09090b" stroke="#fbbf24" stroke-width="2" />
+    <!-- Fabric thumbnail -->
+    <clipPath id="thumbClip_5">
+      <rect x="8" y="8" width="184" height="88" rx="8" />
+    </clipPath>
+    <g clip-path="url(#thumbClip_5)">
+      <image href="https://ai-virtual-fashion-studio.2dd38979/user_upload/saree_magenta.jpg" x="8" y="8" width="184" height="88" preserveAspectRatio="xMidYMid slice" />
+    </g>
+    <!-- Badge Label -->
+    <rect x="8" y="100" width="184" height="22" rx="4" fill="#18181b" />
+    <circle cx="22" cy="111" r="4" fill="#10b981" />
+    <text x="32" y="115" fill="#fef08a" font-size="11" font-family="system-ui, -apple-system, sans-serif" font-weight="800">ORIGINAL WEAVE</text>
+  </g>
+
+  <!-- 6. HIGH FASHION ADVERTISEMENT OVERLAYS -->
+  <!-- Top Kerala Retail Brand Header -->
+  <g transform="translate(40, 40)">
+    <rect width="280" height="54" rx="12" fill="#09090b" fill-opacity="0.85" stroke="#334155" stroke-width="1"/>
+    <text x="18" y="24" fill="#f59e0b" font-size="12" font-family="system-ui, sans-serif" font-weight="900" letter-spacing="1">LAKSHMI SILKS EXCLUSIVE</text>
+    <text x="18" y="42" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" font-weight="600">Meera Nambiar • Kerala Drape</text>
+  </g>
+
+  <!-- Bottom Fashion Angle & Spec Title -->
+  <g transform="translate(40, 1150)">
+    <rect width="640" height="84" rx="16" fill="#09090b" fill-opacity="0.9" stroke="#fbbf24" stroke-opacity="0.5" stroke-width="1.5"/>
+    <!-- Angle Tag -->
+    <rect x="18" y="16" width="110" height="22" rx="6" fill="#d97706" />
+    <text x="73" y="31" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">ANGLE 5/5</text>
+    <text x="140" y="32" fill="#ffffff" font-size="15" font-family="system-ui, sans-serif" font-weight="800">Bridal Kanchipuram Silk Saree</text>
+
+    <!-- Specs Row -->
+    <text x="18" y="64" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" font-weight="500">
+      <tspan fill="#fef08a" font-weight="700">Fabric:</tspan> Heavy Mulberry Silk with Rich Lu • <tspan fill="#34d399" font-weight="700">Fidelity: 98%</tspan>
+    </text>
+  </g>
+</svg>

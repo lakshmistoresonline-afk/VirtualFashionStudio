@@ -75,7 +75,7 @@ class DatabaseStore {
           sizes: ['Free Size', 'Unstitched'],
           description: sample.description,
           specialFeatures: ['100% Color Fast', 'Authentic Handloom', 'Includes Blouse Piece'],
-          occasion: 'Festive, Wedding, Onam',
+          occasion: 'Onam',
           sku: `LAK-${sample.category.substring(0, 3).toUpperCase()}-00${i + 1}`,
           inStock: true
         },

@@ -1,0 +1,91 @@
+{
+  "testDate": "2026-08-17T05:26:58.704Z",
+  "status": "SUCCESS",
+  "analysis": {
+    "category": "Shirting Fabric",
+    "subcategory": "Krishna & Peacock Feather Printed Cotton",
+    "targetGender": "men",
+    "ageGroup": "young_adult",
+    "primaryColor": "Off-White & Indigo",
+    "secondaryColors": [
+      "Turquoise Blue",
+      "Emerald Green"
+    ],
+    "fabricAppearance": "Premium 60s Combed Cotton",
+    "pattern": "Artisanal Krishna Mural Print",
+    "printOrWeave": "Digital Textile Print",
+    "embroidery": "None",
+    "border": "Clean Selvedge",
+    "motifs": [
+      "Lord Krishna",
+      "Peacock Feathers"
+    ],
+    "garmentStructure": "Tailored Full Sleeve Shirt",
+    "style": "festive",
+    "occasion": "Onam",
+    "confidence": 99,
+    "extractedDetails": [
+      "Preserved authentic mural design and peacock feather colors"
+    ]
+  },
+  "script": {
+    "malayalamTitle": "ഓണം സ്പെഷൽ: പ്രീമിയം ഷർട്ടിംഗ് ഫാബ്രിക്",
+    "malayalamScript": "ഓണത്തിന് പുതുമുടി കൂട്ടാൻ പ്രീമിയം ഷർട്ടിംഗ് ഫാബ്രിക്. ഓഫ് വൈറ്റ് & ഇൻഡിഗോ നിറത്തിൽ",
+    "malayalamCaption": "ഓണത്തോട് ആഘോഷിക്കാൻ പുതുതായി എത്തിയ പ്രീമിയം ഷർട്ടിംഗ് ഫാബ്രിക്. 20% ഓഫർ! ✨",
+    "malayalamHashtags": [
+      "#OnamFashion",
+      "#ShirtingFabric",
+      "#KeralaStyle",
+      "#MalayaliOnam"
+    ],
+    "englishTitle": "Premium Shirting Fabric for Onam",
+    "englishScript": "Get ready for Onam with our premium shirting fabric. Available in Off-White & Indigo",
+    "englishCaption": "Celebrate Onam in style with our new premium shirting fabric collection. 20% OFF! ✨",
+    "englishHashtags": [
+      "#OnamCelebrations",
+      "#ShirtingFabric",
+      "#KeralaFashion",
+      "#IndianStyle"
+    ],
+    "durationSec": 15,
+    "hookLine": "പ്രീമിയം ഷർട്ടിംഗ് ഫാബ്രിക് എത്തിയിരിക്കുന്നു",
+    "callToAction": "ഇന്നുതന്നെ ഓർഡർ ചെയ്യൂ | 20% OFF",
+    "subtitles": [
+      {
+        "id": "sub_1",
+        "startTime": 0,
+        "endTime": 3,
+        "textMl": "പ്രീമിയം ഷർട്ടിംഗ് ഫാബ്രിക് എത്തിയിരിക്കുന്നു",
+        "textEn": "Premium shirting fabric now available"
+      },
+      {
+        "id": "sub_2",
+        "startTime": 3,
+        "endTime": 6,
+        "textMl": "ഓഫ് വൈറ്റ് & ഇൻഡിഗോ നിറത്തിൽ",
+        "textEn": "In Off-White & Indigo colors"
+      },
+      {
+        "id": "sub_3",
+        "startTime": 6,
+        "endTime": 9,
+        "textMl": "20% ഓഫർ: ഇന്നുതന്നെ ഓർഡർ ചെയ്യൂ",
+        "textEn": "20% OFF: Order now"
+      },
+      {
+        "id": "sub_4",
+        "startTime": 9,
+        "endTime": 12,
+        "textMl": "കസവ് മുണ്ടിനൊപ്പവും ഫോർമലായും ഉപയോഗിക്കാം",
+        "textEn": "Pairs well with Kasavu Mundu & formal trousers"
+      },
+      {
+        "id": "sub_5",
+        "startTime": 12,
+        "endTime": 15,
+        "textMl": "ഇന്നുതന്നെ ഓർഡർ ചെയ്യൂ | 20% OFF",
+        "textEn": "Order now • 20% OFF"
+      }
+    ]
+  }
+}

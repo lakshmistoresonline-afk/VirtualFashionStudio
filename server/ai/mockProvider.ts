@@ -852,7 +852,7 @@ export class MockAIProvider implements
 
     const shot: FashionShot = {
       id: `shot_talking_${Date.now()}`,
-      shotType: 'portrait',
+      shotType: 'portrait' as any,
       title: `${modelName} Speaking - ${scriptSegment.type}`,
       cameraMovement: 'static_hero',
       imageUrl: modelProfile.avatarUrl || 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=900&auto=format&fit=crop&q=80',

@@ -107,6 +107,23 @@ export class GarmentDrapeCompositor {
   }
 
   /**
+   * Helper to escape special characters for XML/SVG
+   */
+  private static escapeXml(unsafe: string): string {
+    if (!unsafe) return '';
+    return unsafe.replace(/[<>&"']/g, (c) => {
+      switch (c) {
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '&': return '&amp;';
+        case '"': return '&quot;';
+        case "'": return '&apos;';
+        default: return c;
+      }
+    });
+  }
+
+  /**
    * Generates a rich SVG data URI representing the model wearing the tailored garment
    */
   private static renderDrapedSVG(
@@ -144,12 +161,17 @@ export class GarmentDrapeCompositor {
 
     const modelAvatar = model.avatarUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&auto=format&fit=crop&q=80';
     const primaryColor = analysis.primaryColor || '#1e3a8a';
-    const isPrinted = analysis.shirtingType === 'printed' || (analysis.pattern && analysis.pattern.toLowerCase().includes('print'));
+    const isPrinted = (analysis.shirtingType === 'printed') ||
+                      (analysis.pattern && analysis.pattern.toLowerCase().includes('print')) ||
+                      (analysis.subcategory && analysis.subcategory.toLowerCase().includes('print'));
 
     // SVG Pattern Definition for uploaded fabric
     const patternId = `fabric_pattern_${shotIndex}`;
-    const escapedProductImg = productImage.replace(/"/g, '&quot;');
-    const escapedModelAvatar = modelAvatar.replace(/"/g, '&quot;');
+    const escapedProductImg = this.escapeXml(productImage);
+    const escapedModelAvatar = this.escapeXml(modelAvatar);
+    const escapedModelName = this.escapeXml(model.name || 'AI Model');
+    const escapedSubcategory = this.escapeXml(analysis.subcategory || analysis.category || 'Premium Fashion');
+    const escapedFabric = this.escapeXml(analysis.fabricAppearance || 'Authentic Weave');
 
     // Collar & sleeve styling depending on angle
     const isZoomed = shotType === 'three_quarter' || shotType === 'movement';
@@ -336,7 +358,7 @@ export class GarmentDrapeCompositor {
   <g transform="translate(40, 40)">
     <rect width="280" height="54" rx="12" fill="#09090b" fill-opacity="0.85" stroke="#334155" stroke-width="1"/>
     <text x="18" y="24" fill="#f59e0b" font-size="12" font-family="system-ui, sans-serif" font-weight="900" letter-spacing="1">LAKSHMI SILKS EXCLUSIVE</text>
-    <text x="18" y="42" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" font-weight="600">${model.name} • ${isShirting ? 'Tailored Shirt' : 'Kerala Drape'}</text>
+    <text x="18" y="42" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" font-weight="600">${escapedModelName} • ${isShirting ? 'Tailored Shirt' : 'Kerala Drape'}</text>
   </g>
 
   <!-- Bottom Fashion Angle & Spec Title -->
@@ -345,11 +367,11 @@ export class GarmentDrapeCompositor {
     <!-- Angle Tag -->
     <rect x="18" y="16" width="110" height="22" rx="6" fill="#d97706" />
     <text x="73" y="31" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">ANGLE ${shotIndex}/5</text>
-    <text x="140" y="32" fill="#ffffff" font-size="15" font-family="system-ui, sans-serif" font-weight="800">${analysis.subcategory || analysis.category}</text>
+    <text x="140" y="32" fill="#ffffff" font-size="15" font-family="system-ui, sans-serif" font-weight="800">${escapedSubcategory}</text>
 
     <!-- Specs Row -->
     <text x="18" y="64" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" font-weight="500">
-      <tspan fill="#fef08a" font-weight="700">Fabric:</tspan> ${analysis.fabricAppearance.slice(0, 32)} • <tspan fill="#34d399" font-weight="700">Fidelity: 98%</tspan>
+      <tspan fill="#fef08a" font-weight="700">Fabric:</tspan> ${escapedFabric.slice(0, 32)} • <tspan fill="#34d399" font-weight="700">Fidelity: 98%</tspan>
     </text>
   </g>
 </svg>
