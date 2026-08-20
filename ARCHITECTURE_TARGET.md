@@ -1,25 +1,24 @@
-# Target Architecture: Modular Fashion Studio
-
-The existing monolithic controller will be refactored into a **Provider-Based Architecture**.
+# Architecture Target (Phase 2): Split-Runtime Modular Studio
 
 ```mermaid
 graph TD
-    A[UI Controller] --> B{AI Factory}
-    B --> C[VTO Provider]
-    B --> D[Script Provider]
-    B --> E[Talking Provider]
+    A[React Studio UI] --> B[Express Controller]
+    B --> C{AI Factory}
     
-    C --> C1[SVG Simulation - DEFAULT]
-    C --> C2[Wan2.1 Adapter - OPTIONAL]
+    C --> D[LOCAL Path: Simulation]
+    C --> E[REMOTE Path: Real AI]
     
-    D --> D1[Groq Llama 3 - DEFAULT]
-    D --> D2[Gemini Flash - BACKUP]
+    D --> D1[SVG Garment Drape]
+    D --> D2[Canvas Motion]
+    D --> D3[Mouth Mesh Warp]
     
-    E --> E1[Canvas Sound-Sync - DEFAULT]
-    E --> E2[MuseTalk Adapter - OPTIONAL]
+    E --> E1[GPU Worker API]
+    E1 --> E2[CatVTON - Real TryOn]
+    E1 --> E3[Wan2.1 - Real Motion]
+    E1 --> E4[MuseTalk - Real LipSync]
 ```
 
-## Key Interfaces
-- `generateTryOn(product, model)`
-- `generateTalkingShot(video, audio)`
-- `exportMP4(canvasStream)`
+## Key Updates
+1.  **Security**: Secrets moved to `server/.env`.
+2.  **State**: Backend now manages the job queue for Real AI jobs.
+3.  **Persistence**: Intermediate assets (Real VTO images, Clips) stored on server or Firebase Storage.

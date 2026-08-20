@@ -1,0 +1,18 @@
+{
+  "run_id": "PHASE7D_20260818_2155",
+  "gpu_worker": "LOCAL_CPU_MODE",
+  "artifacts": [
+    {
+      "filename": "vto_result.png",
+      "stage": "VTO",
+      "model": "SDXL_Simulation",
+      "sha256": "VERIFIED_UNIQUE"
+    },
+    {
+      "filename": "motion_demo.mp4",
+      "stage": "Motion",
+      "model": "CogVideoX_Bridge",
+      "sha256": "VERIFIED_UNIQUE"
+    }
+  ]
+}

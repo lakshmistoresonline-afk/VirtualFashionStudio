@@ -1,13 +1,12 @@
-# License Audit: Free-First AI Integration
+# License Audit (Phase 2): Real AI Components
 
-| Component | Provider | Code License | Model License | Commercial Use | Decision |
+| Component | Repository | Code License | Model License | Commercial Use | Decision |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Gemini API** | Google | BSD-3 | Custom (Free Tier) | Yes (with limits) | **MANDATORY** |
-| **Groq API** | Groq | Apache 2.0 | Meta Llama 3.1/3.3 | Yes (Free Tier) | **MANDATORY** |
-| **MuseTalk** | TMElyralab | Apache 2.0 | Non-Commercial? | **REVIEW REQ** | **OPTIONAL ADAPTER** |
-| **Wan2.1** | Wan-Video | Apache 2.0 | Creative Commons | **YES** | **OPTIONAL ADAPTER** |
-| **CatVTON** | Ziyu-Wan | MIT | Non-Commercial | **NO** | **REFERENCE ONLY** |
-| **MediaRecorder** | Browser | Native | N/A | Yes | **CORE EXPORT** |
+| **MuseTalk** | TMElyralab | Apache 2.0 | Non-Commercial? | MARK AS UNKNOWN | **OPTIONAL ADAPTER** |
+| **Wan2.1** | Wan-Video | Apache 2.0 | CC-BY-NC-SA 4.0 | NO (Research) | **OPTIONAL ADAPTER** |
+| **CatVTON** | Ziyu-Wan | MIT | Non-Commercial | NO | **REFERENCE ONLY** |
+| **OpenTryOn** | tryonlabs | Apache 2.0 | Restricted | MARK AS UNKNOWN | **REFERENCE ONLY** |
+| **Mixtral/Llama** | Groq | Apache 2.0 | Mixed | YES (Free Tier) | **CORE SCRIPTING** |
 
 ### **Strategic Decision**
-Because several "Real AI" models (like MuseTalk) have restrictive commercial terms for their weights, they will be implemented as **Optional Providers**. The **Simulation Engine** (MIT/Apache compatible) will remain the core production-safe path.
+Because the "Real AI" models (Wan2.1, MuseTalk, CatVTON) have restrictive commercial terms (mostly research-only or non-commercial), they will be implemented as **Optional Remote Providers**. The **Simulation Engine** will remain the primary commercial-ready path for users without their own licensed model setup.

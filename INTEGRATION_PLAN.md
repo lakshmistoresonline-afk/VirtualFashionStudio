@@ -1,21 +1,26 @@
-# Integration Plan: Real Fashion Advertisement Generator
+# Integration Plan (Phase 2): Real AI Pipeline
 
-## Phase 1: Foundation (Current State)
-- [x] Hardware & License Audit.
-- [x] Multi-API Key Support (Gemini/Groq).
-- [x] SVG-based "Zero-Cost" VTO.
+## Phase 1: Security & Provider Prep
+- [ ] Migrate `localStorage` keys to `server/.env`.
+- [ ] Refactor `ClientAIProvider` to use server-side config.
+- [ ] Implement `RealAIProvider` interface.
 
-## Phase 2: Lip-Sync Upgrade (The Talking Model)
-- [ ] Implement `TalkingModelProvider` interface.
-- [ ] **Path A (Free)**: Build a Canvas-based mouth animator (Simple mesh warp or mouth-overlay) synchronized with the Web Speech API frequency data.
-- [ ] **Path B (Local/GPU)**: Create a Python bridge template for **MuseTalk** inference.
+## Phase 2: Real Virtual Try-On (VTO)
+- [ ] Implement `CatVTON` / `OpenTryOn` adapter in GPU worker.
+- [ ] Connect Studio "Try On" button to Real VTO when mode is "Real AI".
+- [ ] Implement Saree-specific pose preprocessing (masking).
 
 ## Phase 3: Fashion Movement (Wan2.1)
-- [ ] Refactor `videoCompositor.ts` to support raw Video Clip overlays.
-- [ ] Implement `FashionMovementProvider`.
-- [ ] Create a "Motion Preset" library (Walk, Pose, Detail) using the simulation engine as the baseline.
+- [ ] Implement `Wan21` adapter in GPU worker.
+- [ ] Create short scene generation (3s clips).
+- [ ] Cache generated clips to prevent redundant GPU calls.
 
-## Phase 4: Full Pipeline Integration
-- [ ] Connect Script -> Audio -> Lip-Sync -> Video Assembly.
-- [ ] Implement "Scene Caching" (Don't regenerate video if only script changes).
-- [ ] Final 9:16 Social Media layout optimization.
+## Phase 4: Talking Presenter (MuseTalk)
+- [ ] Implement `MuseTalk` adapter.
+- [ ] Connect Dressed Video + TTS Audio -> LipSynced Video.
+- [ ] Preserve garment and background during lip-sync.
+
+## Phase 5: Pipeline & QA
+- [ ] Implement Fidelity Scoring (Vision Comparison).
+- [ ] Implement "Retry Stage" logic.
+- [ ] Full end-to-end test with Kanchipuram Saree.

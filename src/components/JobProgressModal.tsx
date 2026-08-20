@@ -17,8 +17,10 @@ interface JobProgressModalProps {
   onCancel?: () => void;
 }
 
-export const JobProgressModal: React.FC<JobProgressModalProps> = ({ job, onCancel }) => {
+export const JobProgressModal: React.FC<{ job: GenerationJob | null; onRetry?: (step: string) => void }> = ({ job, onRetry }) => {
   if (!job || job.status === 'completed' || job.status === 'idle') return null;
+
+  const isFailed = job.status === 'failed';
 
   const pipelineSteps = [
     { key: 'analyzing', label: '1. Clothing Feature Extraction', icon: Layers },
@@ -60,36 +62,59 @@ export const JobProgressModal: React.FC<JobProgressModalProps> = ({ job, onCance
           </div>
         </div>
 
-        {/* Step List */}
-        <div className="space-y-2 mb-6">
-          {pipelineSteps.map((step, idx) => {
-            const Icon = step.icon;
-            const isDone = idx < activeStepIdx;
-            const isCurrent = idx === activeStepIdx;
-
-            return (
-              <div
-                key={step.key}
-                className={`flex items-center space-x-3 p-2 rounded-lg text-xs transition-all ${
-                  isCurrent
-                    ? 'bg-rose-950/40 text-white font-bold border border-rose-500/30'
-                    : isDone
-                    ? 'text-emerald-400 font-medium'
-                    : 'text-slate-500'
-                }`}
+        {isFailed ? (
+          <div className="bg-rose-950/30 border border-rose-500/40 rounded-xl p-4 mb-6 text-center">
+            <AlertCircle className="w-8 h-8 text-rose-500 mx-auto mb-2" />
+            <h4 className="text-sm font-bold text-white mb-1">Step Failed: {job.step?.replace('_', ' ')}</h4>
+            <p className="text-[11px] text-rose-300 mb-4">{job.error || 'Connection to GPU worker lost.'}</p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => onRetry?.(job.step || 'analyzing')}
+                className="flex-1 bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 rounded-lg text-xs flex items-center justify-center space-x-1"
               >
-                {isDone ? (
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                ) : isCurrent ? (
-                  <div className="w-4 h-4 border-2 border-rose-500 border-t-transparent rounded-full animate-spin flex-shrink-0" />
-                ) : (
-                  <Icon className="w-4 h-4 text-slate-600 flex-shrink-0" />
-                )}
-                <span className="truncate">{step.label}</span>
-              </div>
-            );
-          })}
-        </div>
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Retry Step</span>
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg text-xs"
+              >
+                Switch to Sim
+              </button>
+            </div>
+          </div>
+        ) : (
+          /* Step List */
+          <div className="space-y-2 mb-6">
+            {pipelineSteps.map((step, idx) => {
+              const Icon = step.icon;
+              const isDone = idx < activeStepIdx;
+              const isCurrent = idx === activeStepIdx;
+
+              return (
+                <div
+                  key={step.key}
+                  className={`flex items-center space-x-3 p-2 rounded-lg text-xs transition-all ${
+                    isCurrent
+                      ? 'bg-rose-950/40 text-white font-bold border border-rose-500/30'
+                      : isDone
+                      ? 'text-emerald-400 font-medium'
+                      : 'text-slate-500'
+                  }`}
+                >
+                  {isDone ? (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  ) : isCurrent ? (
+                    <div className="w-4 h-4 border-2 border-rose-500 border-t-transparent rounded-full animate-spin flex-shrink-0" />
+                  ) : (
+                    <Icon className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                  )}
+                  <span className="truncate">{step.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         <div className="text-center">
           <p className="text-[10px] text-slate-500">

@@ -77,8 +77,14 @@ export const Header: React.FC<HeaderProps> = ({
               {settings.aiMode === 'live' ? (
                 <>
                   <Zap className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                  <span className="hidden sm:inline">AI Mode: Live Gemini</span>
-                  <span className="sm:hidden">Gemini</span>
+                  <span className="hidden sm:inline">AI Mode: Simulation</span>
+                  <span className="sm:hidden">Sim</span>
+                </>
+              ) : settings.aiMode === 'real_ai' ? (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
+                  <span className="hidden sm:inline">AI Mode: Real AI (GPU)</span>
+                  <span className="sm:hidden">Real</span>
                 </>
               ) : (
                 <>

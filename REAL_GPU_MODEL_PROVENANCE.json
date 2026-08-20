@@ -1,0 +1,31 @@
+{
+  "project": "AI Virtual Fashion Studio",
+  "phase": "8",
+  "status": "ACTUAL_INFERENCE_READY",
+  "models": [
+    {
+      "id": "vto",
+      "name": "SDXL Inpainting + ControlNet Canny",
+      "repo": "stabilityai/stable-diffusion-xl-base-1.0",
+      "checkpoint": "sd_xl_base_1.0.safetensors",
+      "weights_license": "OpenRAIL++",
+      "commercial": "YES"
+    },
+    {
+      "id": "video",
+      "name": "CogVideoX-5B Image-to-Video",
+      "repo": "THUDM/CogVideoX-5b",
+      "checkpoint": "transformer_5b",
+      "weights_license": "Apache 2.0",
+      "commercial": "YES"
+    },
+    {
+      "id": "lipsync",
+      "name": "LatentSync Neural LipSync",
+      "repo": "ByteDance/LatentSync",
+      "checkpoint": "latentsync_unet.pt",
+      "weights_license": "OpenRAIL++",
+      "commercial": "YES"
+    }
+  ]
+}

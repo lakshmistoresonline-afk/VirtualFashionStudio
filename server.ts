@@ -21,13 +21,44 @@ async function startServer() {
   // API Routes
   // ----------------------------------------------------
 
-  // 1. Health check
+  // 1. Health check & Config
   app.get('/api/health', (req, res) => {
     res.json({ 
       status: 'ok', 
       timestamp: new Date().toISOString(),
       aiMode: db.settings.aiMode,
-      hasGeminiKey: Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'MY_GEMINI_API_KEY')
+      hasGeminiKey: Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'MY_GEMINI_API_KEY'),
+      hasGroqKey: Boolean(process.env.GROQ_API_KEY)
+    });
+  });
+
+  // 1.5 GPU Worker Health check
+  app.get('/api/health/ai', async (req, res) => {
+     try {
+       const workerUrl = process.env.GPU_WORKER_URL || 'http://localhost:5000';
+       const response = await fetch(`${workerUrl}/health`);
+       const workerRes = await response.json();
+       res.json({
+          status: 'ready',
+          worker: workerRes
+       });
+     } catch (err) {
+        res.json({
+           status: 'GPU OFFLINE',
+           instance: 'notebooka19b8802ce',
+           error: 'Connection to Remote GPU Worker failed.'
+        });
+     }
+  });
+
+  app.get('/api/config', (req, res) => {
+    // Only send public indicators or safe keys (like the Groq free-tier ones if allowed)
+    // Note: To truly keep secrets server-side, we should proxy the calls.
+    res.json({
+      aiMode: db.settings.aiMode,
+      vtoMode: db.settings.imageProvider === 'real_ai' ? 'real' : 'simulation',
+      hasGemini: !!process.env.GEMINI_API_KEY,
+      hasGroq: !!process.env.GROQ_API_KEY
     });
   });
 
@@ -92,95 +123,84 @@ async function startServer() {
   });
 
   // 3. AI Product Analysis
-  app.post('/api/products/analyze', async (req, res) => {
+  app.post('/api/ai/analyze', async (req, res) => {
     try {
-      const { imageBase64, mimeType, hintText, userInfo } = req.body;
+      const { imageBase64, hintText, userInfo } = req.body;
       const providers = AIFactory.getProvider(db.settings.aiMode);
       const analysis = await providers.analyzer.analyzeProduct({
-        imageBase64: imageBase64 || '',
-        mimeType: mimeType || 'image/jpeg',
+        imageBase64,
+        mimeType: 'image/jpeg',
         hintText: hintText || userInfo?.productName || ''
       });
-      const recommendation = await providers.recommender.recommendModel({
-        analysis,
-        userInfo: userInfo || { productName: analysis.category }
-      });
-      
-      const responseData = {
-        success: true,
-        data: {
-          analysis,
-          recommendedModel: recommendation.recommendedModel,
-          recommendedEnvironment: recommendation.recommendedEnvironment,
-          confidence: recommendation.confidence,
-          reasoning: recommendation.reasoning,
-          alternativeModels: recommendation.alternativeModels
-        },
-        analysis,
-        recommendedModel: recommendation.recommendedModel,
-        recommendedEnvironment: recommendation.recommendedEnvironment
-      };
-      
-      res.json(responseData);
+      res.json({ success: true, data: analysis });
     } catch (err: any) {
-      console.error('Analysis error:', err);
-      res.status(500).json({ success: false, error: err.message || 'Failed to analyze product' });
+      res.status(500).json({ success: false, error: err.message });
     }
   });
 
-  // 4. AI Model Recommendation
-  app.post('/api/models/recommend', async (req, res) => {
+  // 4. VTO Generation
+  app.post('/api/ai/vto', async (req, res) => {
     try {
-      const { analysis, userInfo } = req.body;
+      const { productImage, model, analysis, environment, productName } = req.body;
       const providers = AIFactory.getProvider(db.settings.aiMode);
-      const recommendation = await providers.recommender.recommendModel({
+      const shots = await providers.imageGen.generateFashionShots({
+        productImageBase64: productImage,
+        modelProfile: model,
         analysis,
-        userInfo
+        environment,
+        userInfo: { productName } as any
       });
-      res.json({
-        success: true,
-        data: recommendation,
-        ...recommendation
-      });
+      res.json({ success: true, data: shots });
     } catch (err: any) {
-      console.error('Model recommendation error:', err);
-      res.status(500).json({ success: false, error: err.message || 'Failed to recommend model' });
-    }
-  });
-
-  // 4.5 Capability Checker
-  app.get('/api/ai/capabilities', async (req, res) => {
-    try {
-      const providers = AIFactory.getProvider(db.settings.aiMode);
-      const capabilities = await providers.capabilities.getCapabilities();
-      res.json({ success: true, capabilities });
-    } catch (err: any) {
-      console.error('Capabilities error:', err);
-      res.status(500).json({ success: false, error: err.message || 'Failed to get capabilities' });
+      res.status(500).json({ success: false, error: err.message });
     }
   });
 
   // 5. Script & Subtitle Generator
   app.post('/api/ai/script', async (req, res) => {
     try {
-      const { analysis, userInfo, modelProfile, brandName, tagline, durationSec, environment, presentationMode, speakingStyle, speakerType } = req.body;
+      const input = req.body;
       const providers = AIFactory.getProvider(db.settings.aiMode);
       const script = await providers.scriptGen.generateBilingualScript({
-        analysis,
-        userInfo,
-        modelProfile,
-        brandName: brandName || db.brand.name,
-        tagline: tagline || db.brand.tagline,
-        durationSec: durationSec || 15,
-        environment: environment || 'traditional_kerala',
-        presentationMode: presentationMode || 'hybrid',
-        speakingStyle: speakingStyle || 'festive',
-        speakerType: speakerType || 'female_model'
+        ...input,
+        brandName: input.brandName || db.brand.name,
+        tagline: input.tagline || db.brand.tagline
       });
-      res.json({ success: true, data: script, ...script });
+      res.json({ success: true, data: script });
     } catch (err: any) {
-      console.error('Script generation error:', err);
-      res.status(500).json({ success: false, error: err.message || 'Failed to generate script' });
+      res.status(500).json({ success: false, error: err.message });
+    }
+  });
+
+  // 6. Fidelity Check (Phase 3I)
+  app.post('/api/ai/fidelity', async (req, res) => {
+    try {
+      const { originalImageBase64, generatedShots, analysis, userInfo } = req.body;
+      const providers = AIFactory.getProvider(db.settings.aiMode);
+
+      console.info('[Fidelity Audit] Running Vision comparison on generated advertisement...');
+      const report = await providers.qualityChecker.checkProductFidelity({
+        originalImageBase64,
+        generatedShots,
+        analysis,
+        userInfo
+      });
+
+      res.json({ success: true, data: report });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  });
+
+  // 7. Video Generation
+  app.post('/api/ai/video', async (req, res) => {
+    try {
+      const input = req.body;
+      const providers = AIFactory.getProvider(db.settings.aiMode);
+      const result = await providers.videoGen.generateVideo(input);
+      res.json({ success: true, data: result });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err.message });
     }
   });
 
